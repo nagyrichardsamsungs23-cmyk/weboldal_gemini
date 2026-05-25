@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Árajánlatkérés – Pannon Volt</title>
+    <meta name="description" content="Kérjen ingyenes árajánlatot villanyszerelésre, klímaszerelésre, napelem telepítésre és egyéb műszaki munkákra a Pannon Volttól.">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Árajánlatkérés – Pannon Volt">
+    <meta property="og:description" content="Kérjen ingyenes árajánlatot villanyszerelésre, klímaszerelésre, napelem telepítésre és egyéb műszaki munkákra a Pannon Volttól.">
+    <meta property="og:image" content="https://pannonvolt.hu/N%C3%A9vtelen%20terv.png">
+    <meta property="og:url" content="https://pannonvolt.hu/ajanlatkeres.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="hu_HU">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Árajánlatkérés – Pannon Volt">
+    <meta name="twitter:description" content="Kérjen ingyenes árajánlatot villanyszerelésre, klímaszerelésre, napelem telepítésre és egyéb műszaki munkákra a Pannon Volttól.">
+    <meta name="twitter:image" content="https://pannonvolt.hu/N%C3%A9vtelen%20terv.png">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon_io/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="favicon_io/apple-touch-icon.png">
+    <link rel="manifest" href="favicon_io/site.webmanifest">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="header__inner">
+            <a href="index.html" class="header__logo">
+                <span class="header__logo-text">PANNON<span class="header__logo-accent">VOLT</span></span>
+            </a>
+            <nav class="header__nav">
+                <a href="index.html" class="header__nav-link">Főoldal</a>
+                <a href="index.html#services" class="header__nav-link">Szolgáltatások</a>
+                <a href="rolunk.html" class="header__nav-link">Rólunk</a>
+                <a href="kapcsolat.html" class="header__nav-link">Kapcsolat</a>
+                <a href="hibaelharitas.html" class="header__nav-btn header__nav-btn--sos">🚨 SOS</a>
+                <a href="tel:+363****7052" class="header__nav-btn">📞 +36 30 361 7052</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===== QUOTE HERO ===== -->
+    <section class="quote-hero">
+        <a href="index.html" class="hero-back">← Vissza</a>
+        <div class="quote-hero__inner">
+            <h1 class="quote-hero__title">Árajánlatkérés</h1>
+            <p class="quote-hero__subtitle">
+                Töltse ki az alábbi űrlapot és 24 órán belül felvesszük Önnel a kapcsolatot egy személyre szabott árajánlattal.
+            </p>
+        </div>
+    </section>
+
+    <!-- ===== QUOTE FORM ===== -->
+    <section class="quote-form-section">
+        <div class="quote-form-section__inner">
+            <form class="quote-form" action="https://formspree.io/f/mredlnby" method="POST">
+                
+                <div class="quote-form__row">
+                    <div class="quote-form__field">
+                        <label class="quote-form__label" for="name">Teljes név *</label>
+                        <input class="quote-form__input" type="text" id="name" name="name" placeholder="pl. Kovács István" required>
+                    </div>
+                    <div class="quote-form__field">
+                        <label class="quote-form__label" for="email">Email cím *</label>
+                        <input class="quote-form__input" type="email" id="email" name="email" placeholder="pl. kovacs.istvan@email.hu" required>
+                    </div>
+                </div>
+
+                <div class="quote-form__row">
+                    <div class="quote-form__field">
+                        <label class="quote-form__label" for="phone">Telefonszám *</label>
+                        <input class="quote-form__input" type="tel" id="phone" name="phone" placeholder="pl. +36 30 123 4567" required>
+                    </div>
+                    <div class="quote-form__field">
+                        <label class="quote-form__label" for="service">Milyen szolgáltatás érdekli?</label>
+                        <select class="quote-form__input quote-form__select" id="service" name="service">
+                            <option value="">-- Válasszon --</option>
+                            <option value="villanyszereles">Villanyszerelés</option>
+                            <option value="klimaszereles">Klímaszerelés</option>
+                            <option value="okosotthon">Okosotthon</option>
+                            <option value="napelem">Napelem szerelés</option>
+                            <option value="hoszivattyu">Hőszivattyú</option>
+                            <option value="biztonsagtechnika">Biztonságtechnika</option>
+                            <option value="egyeb">Egyéb</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="quote-form__field quote-form__field--full">
+                    <label class="quote-form__label" for="message">Üzenet (opcionális)</label>
+                    <textarea class="quote-form__input quote-form__textarea" id="message" name="message" placeholder="Írja le röviden, milyen munkára lenne szüksége..."></textarea>
+                </div>
+
+                <button type="submit" class="quote-form__submit">Árajánlat kérése</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p class="footer__text">© 2026 Pannon Volt – Minden jog fenntartva. | <a href="adatkezeles.html" class="footer__link">Adatkezelés</a> | <a href="cookie.html" class="footer__link">Cookie-k</a></p>
+    </footer>
+
+</body>
+</html>
