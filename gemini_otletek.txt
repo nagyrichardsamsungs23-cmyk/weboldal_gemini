@@ -1,0 +1,25 @@
+1. Referenciák / Előtte-Utána galéria
+Készítsünk egy galériát a korábbi munkákról (pl. szépen kábelezett elosztószekrény, felszerelt klíma), mert az emberek látni akarják a minőséget. Lehet külön oldal vagy egy szekció a főoldalon.
+
+2. Ügyfélvélemények (Social Proof)
+Jelenítsünk meg idézeteket elégedett ügyfelektől, esetleg Google Értékelések stílusában, hogy azonnali bizalmat építsünk.
+
+3. "Miért minket válasszon?" (Garanciák és transzparencia)
+Emeljük ki a megbízhatóságot 3-4 pontban a főoldalon:
+- Pontos érkezés, csúszás nélkül
+- Rejtett költségek nélküli, tiszta árajánlat
+- Tisztaság: Munka után mindig összetakarítunk
+- Garancia az elvégzett munkára
+
+4. Hivatalos minősítések, logók
+Jelenítsük meg a szakképesítéseket igazoló jelvényeket (pl. Regisztrált villanyszerelő, F-Gáz vizsga, Érintésvédelmi felülvizsgáló) a főoldalon vagy a láblécben.
+
+5. Gyakori Kérdések (FAQ) szekció
+Válaszoljuk meg előre a leggyakoribb ügyfélkérdéseket (pl. kiszállási díj, határidők, garancia) egy lenyíló listában, ami szakértelmet és átláthatóságot sugároz.
+
+6. Lebegő "Hívás most" gomb mobilra
+Tegyünk a képernyő sarkába egy fixen lebegő telefon vagy chat (Viber/WhatsApp) ikont, hogy vészhelyzet (pl. áramszünet, csőtörés) esetén mobilon egyetlen gombnyomással hívhassanak.
+
+
+7. Naptár rendszer (Online időpontfoglalás)
+Későbbiekben érdemes létrehozni egy naptárt az oldalon, ahol az emberek láthatják a szabad időpontokat és akár közvetlenül tudnak foglalni. Ez megkönnyíti a szervezést és nagyon profi benyomást kelt.

@@ -167,6 +167,13 @@
             <a href="index.html" class="header__logo">
                 <span class="header__logo-text">PANNON<span class="header__logo-accent">VOLT</span></span>
             </a>
+            <!-- Mobile Menu Toggle -->
+            <input type="checkbox" id="menu-toggle" class="header__menu-toggle">
+            <label for="menu-toggle" class="header__menu-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
             <nav class="header__nav">
                 <a href="index.html" class="header__nav-link">Főoldal</a>
                 <a href="index.html#services" class="header__nav-link">Szolgáltatások</a>
@@ -196,8 +203,19 @@
             <p class="sos-subtitle">Kattintson a térképre a helyszín kijelöléséhez, vagy írja be a címet.</p>
 
             <div class="sos-search-row">
-                <input type="text" class="sos-search-input" id="sos-address" placeholder="Pl. Budapest, Kossuth utca 1.">
+                <input type="text" class="sos-search-input" id="sos-address" placeholder="Pl. Pécs, Széchenyi tér 1.">
                 <button class="sos-search-btn" onclick="searchAddress()">Keresés 🔍</button>
+            </div>
+            
+            <div style="margin-bottom: 20px; display: flex; gap: 16px; flex-wrap: wrap;">
+                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px; font-weight: 500; color: #1e293b;">
+                    <input type="checkbox" id="sos-evening" onchange="if(targetMarker) calculate(targetMarker.getLatLng().lat, targetMarker.getLatLng().lng)">
+                    Esti hívás (18:00-22:00) [+50%]
+                </label>
+                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px; font-weight: 500; color: #1e293b;">
+                    <input type="checkbox" id="sos-weekend" onchange="if(targetMarker) calculate(targetMarker.getLatLng().lat, targetMarker.getLatLng().lng)">
+                    Hétvége / Ünnepnap [+100%]
+                </label>
             </div>
 
             <div id="sos-map"></div>
@@ -214,7 +232,7 @@
             <div class="sos-info">
                 <div class="sos-info__card">
                     <strong>📞 Azonnali segítség?</strong>
-                    <span>Hívjon most: +36 30 361 7052</span>
+                    <span>Hívjon most: +36 30 361 7052<br><b>Ügyelet: 08:00 - 22:00</b></span>
                 </div>
                 <div class="sos-info__card">
                     <strong>⚡ Garantált gyorsaság</strong>
@@ -231,17 +249,15 @@
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        // ===== KONFIGURÁCIÓ — EZEKET CSERÉLD KI! =====
-        // TODO: Add meg a bázis koordinátáidat (telephely vagy lakcím)
-        const BASE_LAT = 47.4979;      // Budapest, Deák tér (csak példa)
-        const BASE_LNG = 19.0402;
-        const BASE_NAME = "Pannon Volt bázis";  // TODO: Cseréld ki a bázis nevét
+        // ===== KONFIGURÁCIÓ =====
+        const BASE_LAT = 46.0727;      // Pécs központ
+        const BASE_LNG = 18.2323;
+        const BASE_NAME = "Pannon Volt - Pécs";
 
-        // TODO: Módosítsd az árakat
-        const BASE_PRICE = 15000;      // Alapdíj (Ft)
-        const PRICE_PER_KM = 500;      // Ft / km
-        const MIN_PRICE = 15000;       // Minimum kiszállási díj
-        // ============================================
+        const BASE_PRICE = 15000;      // Alapdíj (1 óra munkadíjjal)
+        const PRICE_PER_KM = 500;      // Ft / km (Pécsen kívül)
+        const PECS_RADIUS_KM = 10;     // Ezen belül nincs km díj
+        // =========================
 
         let targetMarker = null;
 
@@ -286,10 +302,32 @@
         function calculate(lat, lng) {
             const dist = haversineDistance(BASE_LAT, BASE_LNG, lat, lng);
             const km = dist.toFixed(1);
-            const price = Math.max(MIN_PRICE, Math.round(BASE_PRICE + dist * PRICE_PER_KM));
+            
+            let base = BASE_PRICE;
+            let multiplier = 1.0;
+            
+            if (document.getElementById('sos-weekend') && document.getElementById('sos-weekend').checked) {
+                multiplier += 1.0; // +100%
+            } else if (document.getElementById('sos-evening') && document.getElementById('sos-evening').checked) {
+                multiplier += 0.5; // +50%
+            }
+            
+            let kmFee = 0;
+            if (dist > PECS_RADIUS_KM) {
+                kmFee = Math.round(dist) * PRICE_PER_KM;
+            }
+            
+            const finalPrice = Math.round(base * multiplier) + kmFee;
 
             document.getElementById('sos-dist').textContent = km;
-            document.getElementById('sos-price').textContent = price.toLocaleString('hu-HU') + ' Ft';
+            document.getElementById('sos-price').textContent = finalPrice.toLocaleString('hu-HU') + ' Ft';
+            
+            let noteText = "Az ár tartalmazza a kiszállást és az <b>első 1 óra munkadíjat</b>.";
+            noteText += "<br>Minden további megkezdett fél óra: <b>5.000 Ft</b>.";
+            noteText += "<br><span style='color: #059669; font-weight: 500;'>✔ A beépített alkatrészeket (pl. kismegszakító, dugalj) korrekt piaci áron, rejtett felár nélkül biztosítjuk. Nálunk az anyagon nincs haszonkulcs!</span>";
+            if (kmFee > 0) noteText += "<br><i>(Pécsen kívüli távolsági díj: " + kmFee.toLocaleString('hu-HU') + " Ft)</i>";
+            
+            document.querySelector('.sos-result__note').innerHTML = noteText;
             document.getElementById('sos-result').classList.add('sos-result--visible');
 
             // Zoom hogy látszódjon mindkét pont
@@ -336,7 +374,29 @@
         document.getElementById('sos-address').addEventListener('keydown', function(e) {
             if (e.key === 'Enter') searchAddress();
         });
+
+        // Automatikus időellenőrzés oldalbetöltéskor
+        window.addEventListener('DOMContentLoaded', () => {
+            const now = new Date();
+            const hour = now.getHours();
+            const day = now.getDay(); // 0 = Vasárnap, 6 = Szombat
+
+            const isWeekend = (day === 0 || day === 6);
+            const isEvening = (hour >= 18 && hour < 22);
+
+            const weekendBox = document.getElementById('sos-weekend');
+            const eveningBox = document.getElementById('sos-evening');
+
+            if (weekendBox && isWeekend) {
+                weekendBox.checked = true;
+            } else if (eveningBox && isEvening) {
+                eveningBox.checked = true;
+            }
+        });
     </script>
 
+
+    <!-- Lebegő Hívás Gomb -->
+    <a href="tel:+36303617052" class="floating-call-btn" title="Hívjon most!">📞</a>
 </body>
 </html>
