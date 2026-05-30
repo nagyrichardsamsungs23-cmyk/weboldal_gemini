@@ -260,6 +260,7 @@
         // =========================
 
         let targetMarker = null;
+        let routeLine = null;
 
         // Térkép inicializálása
         const map = L.map('sos-map').setView([BASE_LAT, BASE_LNG], 11);
@@ -300,55 +301,60 @@
         }
 
         function calculate(lat, lng) {
-            const dist = haversineDistance(BASE_LAT, BASE_LNG, lat, lng);
-            const km = dist.toFixed(1);
-            
-            let base = BASE_PRICE;
-            let multiplier = 1.0;
-            
-            if (document.getElementById('sos-weekend') && document.getElementById('sos-weekend').checked) {
-                multiplier += 1.0; // +100%
-            } else if (document.getElementById('sos-evening') && document.getElementById('sos-evening').checked) {
-                multiplier += 0.5; // +50%
-            }
-            
-            let kmFee = 0;
-            if (dist > PECS_RADIUS_KM) {
-                kmFee = Math.round(dist) * PRICE_PER_KM;
-            }
-            
-            const finalPrice = Math.round(base * multiplier) + kmFee;
+            const osrmUrl = `https://router.project-osrm.org/route/v1/driving/${BASE_LNG},${BASE_LAT};${lng},${lat}?overview=full&geometries=geojson`;
 
-            document.getElementById('sos-dist').textContent = km;
-            document.getElementById('sos-price').textContent = finalPrice.toLocaleString('hu-HU') + ' Ft';
-            
-            let noteText = "Az ár tartalmazza a kiszállást és az <b>első 1 óra munkadíjat</b>.";
-            noteText += "<br>Minden további megkezdett fél óra: <b>5.000 Ft</b>.";
-            noteText += "<br><span style='color: #059669; font-weight: 500;'>✔ A beépített alkatrészeket (pl. kismegszakító, dugalj) korrekt piaci áron, rejtett felár nélkül biztosítjuk. Nálunk az anyagon nincs haszonkulcs!</span>";
-            if (kmFee > 0) noteText += "<br><i>(Pécsen kívüli távolsági díj: " + kmFee.toLocaleString('hu-HU') + " Ft)</i>";
-            
-            document.querySelector('.sos-result__note').innerHTML = noteText;
-            document.getElementById('sos-result').classList.add('sos-result--visible');
+            fetch(osrmUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.code !== 'Ok' || !data.routes || data.routes.length === 0) {
+                        alert("Nem sikerült útvonalat tervezni a megadott pontra.");
+                        return;
+                    }
 
-            // Zoom hogy látszódjon mindkét pont
-            const group = new L.featureGroup([baseMarker, targetMarker]);
-            map.fitBounds(group.getBounds().pad(0.2));
-        }
+                    const route = data.routes[0];
+                    const dist = route.distance / 1000; // méter -> km
+                    const km = dist.toFixed(1);
+                    
+                    if (routeLine) {
+                        map.removeLayer(routeLine);
+                    }
 
-        // Haversine formula (távolság km-ben)
-        function haversineDistance(lat1, lon1, lat2, lon2) {
-            const R = 6371;
-            const dLat = toRad(lat2 - lat1);
-            const dLon = toRad(lon2 - lon1);
-            const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-                      Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
-                      Math.sin(dLon/2) * Math.sin(dLon/2);
-            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-            return R * c;
-        }
+                    const coordinates = route.geometry.coordinates.map(coord => [coord[1], coord[0]]);
+                    routeLine = L.polyline(coordinates, {color: '#3b82f6', weight: 5, opacity: 0.8}).addTo(map);
+                    
+                    let base = BASE_PRICE;
+                    let multiplier = 1.0;
+                    
+                    if (document.getElementById('sos-weekend') && document.getElementById('sos-weekend').checked) {
+                        multiplier += 1.0; // +100%
+                    } else if (document.getElementById('sos-evening') && document.getElementById('sos-evening').checked) {
+                        multiplier += 0.5; // +50%
+                    }
+                    
+                    let kmFee = 0;
+                    if (dist > PECS_RADIUS_KM) {
+                        kmFee = Math.round(dist) * PRICE_PER_KM;
+                    }
+                    
+                    const finalPrice = Math.round(base * multiplier) + kmFee;
 
-        function toRad(deg) {
-            return deg * (Math.PI / 180);
+                    document.getElementById('sos-dist').textContent = km;
+                    document.getElementById('sos-price').textContent = finalPrice.toLocaleString('hu-HU') + ' Ft';
+                    
+                    let noteText = "Az ár tartalmazza a kiszállást és az <b>első 1 óra munkadíjat</b>.";
+                    noteText += "<br>Minden további megkezdett fél óra: <b>5.000 Ft</b>.";
+                    noteText += "<br><span style='color: #059669; font-weight: 500;'>✔ A beépített alkatrészeket (pl. kismegszakító, dugalj) korrekt piaci áron, rejtett felár nélkül biztosítjuk. Nálunk az anyagon nincs haszonkulcs!</span>";
+                    if (kmFee > 0) noteText += "<br><i>(Pécsen kívüli távolsági díj: " + kmFee.toLocaleString('hu-HU') + " Ft)</i>";
+                    
+                    document.querySelector('.sos-result__note').innerHTML = noteText;
+                    document.getElementById('sos-result').classList.add('sos-result--visible');
+
+                    map.fitBounds(routeLine.getBounds().pad(0.1));
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert("Hálózati hiba az útvonaltervezés során.");
+                });
         }
 
         // Címkeresés (Nominatim)
