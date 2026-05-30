@@ -860,30 +860,9 @@ body {
 }
 
 /* ===== FLOATING CALL BUTTON ===== */
-.floating-call-btn {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    width: 60px;
-    height: 60px;
-    background-color: #10b981;
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 28px;
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
-    z-index: 9999;
-    text-decoration: none;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    animation: pulse-call 2s infinite;
-}
 
-.floating-call-btn:hover {
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.6);
-}
+
+
 
 @keyframes pulse-call {
     0% {
@@ -1051,3 +1030,83 @@ body {
         transform: translateY(-9px) rotate(-45deg);
     }
 }
+
+/* --- FAB All-in-One --- */
+.fab-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 12px;
+}
+.fab-toggle {
+    display: none;
+}
+.fab-main {
+    width: 60px;
+    height: 60px;
+    background: #16a34a;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(22, 163, 74, 0.4);
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+.fab-main:hover {
+    transform: scale(1.05);
+    background: #15803d;
+}
+.fab-icon-close {
+    display: none;
+    font-size: 24px;
+}
+.fab-toggle:checked ~ .fab-main .fab-icon-chat {
+    display: none;
+}
+.fab-toggle:checked ~ .fab-main .fab-icon-close {
+    display: block;
+}
+.fab-toggle:checked ~ .fab-main {
+    background: #475569;
+    box-shadow: 0 4px 15px rgba(71, 85, 105, 0.4);
+}
+.fab-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) scale(0.8);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: bottom center;
+}
+.fab-toggle:checked ~ .fab-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+.fab-item {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease;
+}
+.fab-item:hover {
+    transform: scale(1.1);
+}
+.fab-wa { background: #25D366; }
+.fab-ms { background: #00B2FF; }
+.fab-ph { background: #16a34a; }

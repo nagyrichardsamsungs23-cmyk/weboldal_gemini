@@ -23,3 +23,21 @@ Tegyünk a képernyő sarkába egy fixen lebegő telefon vagy chat (Viber/WhatsA
 
 7. Naptár rendszer (Online időpontfoglalás)
 Későbbiekben érdemes létrehozni egy naptárt az oldalon, ahol az emberek láthatják a szabad időpontokat és akár közvetlenül tudnak foglalni. Ez megkönnyíti a szervezést és nagyon profi benyomást kelt.
+
+8. Valódi, működő Ajánlatkérő / Kapcsolat űrlap
+Ha a jelenlegi űrlapok még csak "design"-ok, be lehet kötni a háttérben (pl. a Formspree vagy EmailJS ingyenes rendszerével), hogy kitöltéskor azonnal megérkezzenek az adatok e-mailben.
+
+9. Görgetési animációk (Scroll Animations)
+Beállíthatjuk, hogy ahogy az ügyfél görget lefelé, a szövegek és a képek lágyan, elegánsan ússzanak be a képernyőre. Ez nagyon prémium, modern hatást ad az oldalnak.
+
+10. Sötét mód (Dark Mode) kapcsoló
+Az oldal kaphatna egy éjszakai témát, ami egy kis kapcsolóval váltható a menüben. Nagyon trendi és kíméli a szemet.
+
+11. Szolgáltatások ikonjainak animálása
+Amikor az egeret ráhúzzák egy szolgáltatás kártyára (pl. Klímaszerelés), az ikon finoman megmozdulhatna, vagy pulzálhatna.
+
+12. Google Local Business kódrészlet (SEO)
+Beépíthetünk egy speciális (láthatatlan) adatstruktúrát, amit a Google robotjai imádnak. Ez segít, hogy helyi kereséseknél (pl. "villanyszerelő pécs") előrébb rangsoroljon az oldal.
+
+13. WhatsApp / Messenger chat buborék
+A lebegő telefon ikon mellé (vagy helyett) be lehet tenni egy Messenger vagy WhatsApp gombot is, hogy aki nem mer telefonálni, az egyből írhasson üzenetet.
