@@ -41,3 +41,15 @@ Beépíthetünk egy speciális (láthatatlan) adatstruktúrát, amit a Google ro
 
 13. WhatsApp / Messenger chat buborék
 A lebegő telefon ikon mellé (vagy helyett) be lehet tenni egy Messenger vagy WhatsApp gombot is, hogy aki nem mer telefonálni, az egyből írhasson üzenetet.
+
+
+---
+
+14. MAI NAP ÖSSZEFOGLALÓJA (2026-05-30)
+- Elkészült a dinamikus OSRM térképes útvonaltervező és távolságkalkulátor az SOS oldalon.
+- Az egyszerű lebegő hívás gombot lecseréltük egy "All-in-One" zöld kapcsolati gombra (Telefon, WhatsApp, Messenger).
+- A főoldali szövegezés ("Villany- és klímaszerelés a Dél-Dunántúlon, határidőre, átláthatóan") ütősebb, hitelesebb és célzottabb lett.
+- A sötét módot és az animációkat leteszteltük, de a letisztultság és gyorsaság érdekében visszavontuk.
+- Az oldal kódját Nyilvánossá tettük a GitHubon, és bekapcsoltuk a GitHub Pages szolgáltatást (a weboldal éles és tesztelhető).
+- A sitemap.xml dátumait aktualizáltuk a maximális SEO teljesítmény érdekében.
+- Feltelepítettük a Signalt az Ubuntu gépre az egyszerű fájl- és linkmegosztás érdekében.
